@@ -15,12 +15,14 @@ const menu: {
     price: 5000,
   },
   {
-    name: "Ayam",
+    name: "Ayam Sekilo",
+    description: "1/2 Kg",
     image: "",
     price: 32000,
   },
   {
-    name: "Ayam 1/2 Kg",
+    name: "Ayam Setengah Kilo",
+    description: "1/2 Kg",
     image: "",
     price: 16000,
   },
@@ -50,12 +52,14 @@ const menu: {
     price: 7000,
   },
   {
-    name: "Pare 1/2 Kg",
+    name: "Pare setengah kilo",
+    description: "1/2 Kg",
     image: "",
     price: 5000,
   },
   {
-    name: "Gambas 1/2 Kg",
+    name: "Gambas setengah kilo",
+    description: "1/2 Kg",
     image: "",
     price: 5000,
   },
@@ -84,11 +88,10 @@ const menu: {
     price: 24000,
   },
   {
-    name: "Ikan Salem",
+    name: "Ikan Salem *",
     description: "1 Kg",
     image: "",
     price: 8000,
-
   },
   {
     name: "Bawang Merah",
@@ -107,7 +110,6 @@ const menu: {
     description: "1 Kg",
     image: "",
     price: 7000,
-
   },
   {
     name: "Kangkung 1 Ikat",
@@ -167,7 +169,7 @@ const menu: {
     price: 15000,
   },
   {
-    name: "Sawi Cendok",
+    name: "Sawi Cendok *",
     image: "",
     price: 3000,
   },

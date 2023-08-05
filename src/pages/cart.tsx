@@ -34,14 +34,12 @@ export default function CartPage() {
   const totalItem = veggetables.map((veggie) => (veggie.currentCart)).reduce((a, b) => a + b, 0);
   const totalHarga = veggetables.map((veggie) => (veggie.currentCart * veggie.price)).reduce((a, b) => a + b, 0);
 
-  const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus, saya ingin memesan:
+  const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus! saya ingin memesan
 ${veggetables.filter((veggie) => veggie.currentCart > 0).map((veggie) => `- ${veggie.name} x${veggie.currentCart} @${veggie.price}
 `).join("")}
-dengan total Rp.${numberWithSeparator(totalHarga)}
+Total bayar: Rp.${numberWithSeparator(totalHarga)}
 
-Pastikan sudah tahu rumah saya dan pastikan harga sudah sesuai ya, mas.
-_Chat ini merupakan template dari #DoTangi_
-`)}`
+Pastikan sudah tahu rumah saya dan pastikan harganya sudah sesuai ya, mas.`)}`
 
   return (
     <>
@@ -76,7 +74,6 @@ _Chat ini merupakan template dari #DoTangi_
             />
             <Stack spacing="5px">
               <Text
-                textTransform="capitalize"
                 {...fontStyle.body1bold}
                 noOfLines={1}
               >
