@@ -1,44 +1,41 @@
+import FoodCard from "@/components/card/food";
 import Iconify from "@/components/image/Iconify";
-import ImageWithSkeleton from "@/components/image/ImageWithSkeleton";
 import { fontStyle } from "@/styles/customTheme/fontStyle";
 import { numberWithSeparator } from "@/utils/format/number";
 import menu from "@/utils/menu";
-import { Button, Flex, HStack, Input, InputGroup, InputLeftElement, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex, HStack, Input, InputGroup, InputLeftElement, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function CartPage() {
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const [veggetables, setVeggetables] = useState(menu.map((m) => ({
-    name: m.name,
-    description: m.description,
-    image: m.image,
-    price: m.price,
+  const [carts, setCarts] = useState(menu.map((m) => ({
+    ...m,
     currentCart: 0,
   })));
 
   const nomorMasAgus = "62859159868347";
 
   function increaseOnCart(name: string) {
-    const index = veggetables.findIndex((veggie) => veggie.name === name);
-    const temp = [...veggetables];
+    const index = carts.findIndex((item) => item.name === name);
+    const temp = [...carts];
     temp[index].currentCart = temp[index].currentCart + 1;
-    setVeggetables(temp);
+    setCarts(temp);
   }
 
   function decreaseOnCart(name: string) {
-    const index = veggetables.findIndex((veggie) => veggie.name === name);
-    const temp = [...veggetables];
+    const index = carts.findIndex((item) => item.name === name);
+    const temp = [...carts];
     temp[index].currentCart = temp[index].currentCart - 1;
-    setVeggetables(temp);
+    setCarts(temp);
   }
 
-  const totalItem = veggetables.map((veggie) => (veggie.currentCart)).reduce((a, b) => a + b, 0);
-  const totalHarga = veggetables.map((veggie) => (veggie.currentCart * veggie.price)).reduce((a, b) => a + b, 0);
+  const totalItem = carts.map((item) => (item.currentCart)).reduce((a, b) => a + b, 0);
+  const totalHarga = carts.map((item) => (item.currentCart * item.price)).reduce((a, b) => a + b, 0);
 
   function onClickPesan() {
     const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus! saya ingin memesan
-${veggetables.filter((veggie) => veggie.currentCart > 0).map((veggie) => ` • ${veggie.name} x${veggie.currentCart} @${veggie.price}
+${carts.filter((item) => item.currentCart > 0).map((item) => ` • ${item.name} x${item.currentCart} @${item.price}
 `).join("")}
 Total bayar: Rp.${numberWithSeparator(totalHarga)}
 
@@ -47,11 +44,8 @@ Pastikan sudah tahu rumah saya dan harganya sudah sesuai ya, mas.`)}`
   }
 
   function reset() {
-    setVeggetables(menu.map((m) => ({
-      name: m.name,
-      description: m.description,
-      image: m.image,
-      price: m.price,
+    setCarts(menu.map((m) => ({
+      ...m,
       currentCart: 0,
     })));
     setSearchKeyword("");
@@ -102,82 +96,55 @@ Pastikan sudah tahu rumah saya dan harganya sudah sesuai ya, mas.`)}`
             type="search"
           />
         </InputGroup>
-        {veggetables.filter((veggie) =>
-          veggie.name.toLowerCase().includes(searchKeyword.toLowerCase())
-        ).map((veggie) => (
-          <HStack
-            spacing="10px"
-            w="100%"
+        <Flex alignItems="center">
+          <Text
+            {...fontStyle.captionBold}
+            color="gray.500"
+            mr="10px"
           >
-            <ImageWithSkeleton
-              src={veggie.image || "/kubis-icon.png"}
-              alt={"gambar " + veggie.name}
-              bgColor="green.100"
-              borderRadius="10px"
-              height="60px"
-              width="60px"
-            />
-            <Stack spacing="5px">
-              <Text
-                {...fontStyle.body1bold}
-                noOfLines={1}
-              >
-                {veggie.name}
-              </Text>
-              {!veggie.description === false && (
-                <Text
-                  {...fontStyle.caption}
-                  noOfLines={1}
-                >
-                  {veggie.description}
-                </Text>
-              )}
-              <Text
-                {...fontStyle.body2bold}
-                color="sayur.accent700"
-              >
-                Rp{numberWithSeparator(veggie.price)}
-              </Text>
-            </Stack>
-            <Spacer />
-            {veggie.currentCart > 0 ? (
-              <Stack
-                alignItems="end"
-                spacing="5px"
-              >
-                <HStack spacing="10px">
-                  <Button
-                    onClick={() => decreaseOnCart(veggie.name)}
-                    size="xs"
-                  >
-                    -
-                  </Button>
-                  <Text {...fontStyle.body2bold}>
-                    {veggie.currentCart}
-                  </Text>
-                  <Button
-                    onClick={() => increaseOnCart(veggie.name)}
-                    colorScheme="green"
-                    size="xs"
-                  >
-                    +
-                  </Button>
-                </HStack>
-                <Text {...fontStyle.captionBold}>
-                  Rp{numberWithSeparator(veggie.currentCart * veggie.price)}
-                </Text>
-              </Stack>
-            ) : (
-              <Button
-                onClick={() => increaseOnCart(veggie.name)}
-                colorScheme="green"
-                minW="76.78px"
-                size="sm"
-              >
-                Tambah
-              </Button>
-            )}
-          </HStack>
+            Sayur
+          </Text>
+          <Divider borderWidth="0.5px" borderColor="gray.300" />
+        </Flex>
+        {carts.filter((item) =>
+          item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && item.category === 0
+        ).map((item) => (
+          <FoodCard
+            placeholderImage="/kubis-icon.png"
+            description={item.description}
+            currentCart={item.currentCart}
+            increaseOnCart={increaseOnCart}
+            decreaseOnCart={decreaseOnCart}
+            placeholderColor="green.100"
+            image={item.image}
+            price={item.price}
+            name={item.name}
+          />
+        ))}
+        <Flex alignItems="center">
+          <Text
+            {...fontStyle.captionBold}
+            color="gray.500"
+            mr="10px"
+          >
+            Daging
+          </Text>
+          <Divider borderWidth="0.5px" borderColor="gray.300" />
+        </Flex>
+        {carts.filter((item) =>
+          item.name.toLowerCase().includes(searchKeyword.toLowerCase()) && item.category === 1
+        ).map((item) => (
+          <FoodCard
+            placeholderImage="/ayam-icon.png"
+            description={item.description}
+            currentCart={item.currentCart}
+            increaseOnCart={increaseOnCart}
+            decreaseOnCart={decreaseOnCart}
+            placeholderColor="yellow.100"
+            image={item.image}
+            price={item.price}
+            name={item.name}
+          />
         ))}
         <Flex h="160px" />
       </Stack>

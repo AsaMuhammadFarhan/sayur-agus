@@ -1,183 +1,166 @@
-const menu: {
+type Menu = {
   name: string;
   description?: string;
-  image: string;
+  image?: string;
   price: number;
-}[] = [
+};
+
+const vegetables: Menu[] = [
   {
     name: "Tahu",
-    image: "",
     price: 5000,
   },
   {
     name: "Tempe",
-    image: "",
     price: 5000,
   },
   {
-    name: "Ayam Sekilo",
-    description: "1/2 Kg",
-    image: "",
-    price: 32000,
-  },
-  {
-    name: "Ayam Setengah Kilo",
-    description: "1/2 Kg",
-    image: "",
-    price: 16000,
-  },
-  {
     name: "Bayam",
-    image: "",
     price: 6000,
   },
   {
     name: "Bayam Potong",
-    image: "",
     price: 3000,
   },
   {
     name: "Sawi",
-    image: "",
     price: 3000,
   },
   {
-    name: "Kol",
-    image: "",
+    name: "Kembang Kol",
     price: 5000,
   },
   {
     name: "Tomat",
-    image: "",
     price: 7000,
   },
   {
     name: "Pare setengah kilo",
     description: "1/2 Kg",
-    image: "",
     price: 5000,
   },
   {
     name: "Gambas setengah kilo",
     description: "1/2 Kg",
-    image: "",
     price: 5000,
   },
   {
     name: "Kacang Panjang",
     description: "1 Kg",
-    image: "",
     price: 10000,
   },
   {
     name: "Brocoli",
     description: "1 Kg",
-    image: "",
     price: 15000,
   },
   {
     name: "Kembang Kol",
     description: "1 Kg",
-    image: "",
     price: 12000,
-  },
-  {
-    name: "Lele",
-    description: "1 Kg",
-    image: "",
-    price: 24000,
-  },
-  {
-    name: "Ikan Salem *",
-    description: "1 Kg",
-    image: "",
-    price: 8000,
   },
   {
     name: "Bawang Merah",
     description: "1 Kg",
-    image: "",
     price: 30000,
   },
   {
     name: "Bawang Putih",
     description: "1 Kg",
-    image: "",
     price: 38000,
   },
   {
     name: "Buncis",
     description: "1 Kg",
-    image: "",
     price: 7000,
   },
   {
-    name: "Kangkung 1 Ikat",
-    image: "",
+    name: "Kangkung 1 ikat",
     price: 4000,
   },
   {
     name: "Cabe Merah",
-    image: "",
     price: 30000,
   },
   {
     name: "Cabe Rawit",
-    image: "",
     price: 32000,
   },
   {
     name: "Kentang",
-    image: "",
     price: 16000,
   },
   {
     name: "Wortel",
-    image: "",
     price: 12000,
   },
   {
-    name: "Ceker",
-    image: "",
-    price: 17000,
-  },
-  {
-    name: "Ati Ayam",
-    image: "",
-    price: 20000,
-  },
-  {
-    name: "Kepala",
-    image: "",
-    price: 17000,
-  },
-  {
     name: "Sop sopan",
-    image: "",
     price: 2000,
   },
   {
     name: "Cambah",
     description: "1 Kg",
-    image: "",
     price: 14000,
   },
   {
     name: "Onclang",
     description: "1 Kg",
-    image: "",
     price: 15000,
   },
   {
-    name: "Sawi Cendok *",
-    image: "",
+    name: "Sawi Cendok",
     price: 3000,
   },
   {
     name: "Slobor",
-    image: "",
     price: 4000,
   },
+];
+
+const meats: Menu[] = [
+  {
+    name: "Ayam sekilo",
+    description: "1 Kg",
+    price: 32000,
+  },
+  {
+    name: "Ayam setengah kilo",
+    description: "1/2 Kg",
+    price: 16000,
+  },
+  {
+    name: "Lele",
+    description: "1 Kg",
+    price: 24000,
+  },
+  {
+    name: "Ikan Salem",
+    description: "1 Kg",
+    price: 8000,
+  },
+  {
+    name: "Ceker",
+    price: 17000,
+  },
+  {
+    name: "Ati Ayam",
+    price: 20000,
+  },
+  {
+    name: "Kepala",
+    price: 17000,
+  },
+  {
+    name: "Telur",
+    description: "1 Kg",
+    price: 50000,
+  },
+];
+
+const menu = [
+  ...vegetables.map((veg) => ({ ...veg, category: 0 })),
+  ...meats.map((meat) => ({ ...meat, category: 1 })),
 ];
 
 export default menu;
