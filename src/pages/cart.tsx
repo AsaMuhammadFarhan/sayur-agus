@@ -52,6 +52,9 @@ export default function CartPage() {
 ${veggetables.map((veggie) => `- ${veggie.name} x${veggie.currentCart} @${veggie.price}
 `).join("")}
 dengan total Rp.${numberWithSeparator(totalHarga)}
+
+Pastikan sudah tahu rumah saya dan pastikan harga sudah sesuai ya, mas.
+_Chat ini merupakan template dari #DoTangi_
 `)}`
 
   return (
