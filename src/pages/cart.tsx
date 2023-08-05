@@ -3,10 +3,12 @@ import ImageWithSkeleton from "@/components/image/ImageWithSkeleton";
 import { fontStyle } from "@/styles/customTheme/fontStyle";
 import { numberWithSeparator } from "@/utils/format/number";
 import menu from "@/utils/menu";
-import { Button, Flex, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Button, Flex, HStack, Input, InputGroup, InputLeftElement, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function CartPage() {
+  const [searchKeyword, setSearchKeyword] = useState("");
+
   const [veggetables, setVeggetables] = useState(menu.map((m) => ({
     name: m.name,
     description: m.description,
@@ -34,12 +36,26 @@ export default function CartPage() {
   const totalItem = veggetables.map((veggie) => (veggie.currentCart)).reduce((a, b) => a + b, 0);
   const totalHarga = veggetables.map((veggie) => (veggie.currentCart * veggie.price)).reduce((a, b) => a + b, 0);
 
-  const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus! saya ingin memesan
-${veggetables.filter((veggie) => veggie.currentCart > 0).map((veggie) => `- ${veggie.name} x${veggie.currentCart} @${veggie.price}
+  function onClickPesan() {
+    const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus! saya ingin memesan
+${veggetables.filter((veggie) => veggie.currentCart > 0).map((veggie) => ` • ${veggie.name} x${veggie.currentCart} @${veggie.price}
 `).join("")}
 Total bayar: Rp.${numberWithSeparator(totalHarga)}
 
-Pastikan sudah tahu rumah saya dan pastikan harganya sudah sesuai ya, mas.`)}`
+Pastikan sudah tahu rumah saya dan harganya sudah sesuai ya, mas.`)}`
+    window.open(templateText, "_blank")
+  }
+
+  function reset() {
+    setVeggetables(menu.map((m) => ({
+      name: m.name,
+      description: m.description,
+      image: m.image,
+      price: m.price,
+      currentCart: 0,
+    })));
+    setSearchKeyword("");
+  }
 
   return (
     <>
@@ -48,18 +64,47 @@ Pastikan sudah tahu rumah saya dan pastikan harganya sudah sesuai ya, mas.`)}`
         p="20px"
       >
         <Stack spacing="5px">
-          <Text
-            {...fontStyle.heading5bold}
-          >
-            Pilih Bahan
-          </Text>
+          <HStack justify="space-between">
+            <Text
+              {...fontStyle.heading5bold}
+            >
+              Pilih Bahan
+            </Text>
+            <Button
+              pointerEvents={totalItem === 0 ? "none" : undefined}
+              opacity={totalItem === 0 ? 0 : 1}
+              onClick={() => reset()}
+              colorScheme="green"
+              variant="outline"
+              size="xs"
+            >
+              <Iconify
+                icon="bx:reset"
+                mr="4px"
+              />
+              Reset
+            </Button>
+          </HStack>
           <Text
             {...fontStyle.captionRegular}
           >
             Harga yang dicantumkan bisa berbeda dengan aslinya dan akan segera diperbarui
           </Text>
         </Stack>
-        {veggetables.map((veggie) => (
+        <InputGroup size="sm">
+          <InputLeftElement>
+            <Iconify icon="bx:search" />
+          </InputLeftElement>
+          <Input
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            placeholder="cari bahan makanan"
+            value={searchKeyword}
+            type="search"
+          />
+        </InputGroup>
+        {veggetables.filter((veggie) =>
+          veggie.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        ).map((veggie) => (
           <HStack
             spacing="10px"
             w="100%"
@@ -147,7 +192,7 @@ Pastikan sudah tahu rumah saya dan pastikan harganya sudah sesuai ya, mas.`)}`
         w="100%"
       >
         <Button
-          onClick={() => window.open(templateText, "_blank")}
+          onClick={() => onClickPesan()}
           colorScheme="green"
           w="100%"
         >
