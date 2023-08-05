@@ -55,7 +55,7 @@ const vegetables: Menu[] = [
     price: 15000,
   },
   {
-    name: "Kembang Kol",
+    name: "Kembang Kol sekilo",
     description: "1 Kg",
     price: 12000,
   },
