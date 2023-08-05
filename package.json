@@ -1,0 +1,32 @@
+{
+  "name": "dibi-form",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "gen": "graphql-codegen --config codegen.ts",
+    "adapt": "brew link --overwrite node@18"
+  },
+  "dependencies": {
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@iconify/react": "^4.1.1",
+    "@types/node": "20.4.5",
+    "@types/react": "18.2.17",
+    "@types/react-dom": "18.2.7",
+    "framer-motion": "^10.15.0",
+    "graphql": "^16.7.1",
+    "moment": "^2.0.0",
+    "next": "13.4.12",
+    "next-seo": "^6.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6",
+    "urql": "^4.0.5"
+  }
+}
