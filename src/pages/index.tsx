@@ -46,6 +46,7 @@ const IndexPage = () => {
           maxW="550px"
         >
           Temukan kemudahan dalam memesan sayuran Mas Agus!
+          Pesan hari ini untuk besok pagi ya.
         </Text>
         <Link href="/cart">
           <Button colorScheme="green" mt="40px">
