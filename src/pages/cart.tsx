@@ -35,7 +35,7 @@ export default function CartPage() {
   const totalHarga = veggetables.map((veggie) => (veggie.currentCart * veggie.price)).reduce((a, b) => a + b, 0);
 
   const templateText = `https://wa.me/${nomorMasAgus}?text=${encodeURI(`Halo Mas Agus, saya ingin memesan:
-${veggetables.map((veggie) => `- ${veggie.name} x${veggie.currentCart} @${veggie.price}
+${veggetables.filter((veggie) => veggie.currentCart > 0).map((veggie) => `- ${veggie.name} x${veggie.currentCart} @${veggie.price}
 `).join("")}
 dengan total Rp.${numberWithSeparator(totalHarga)}
 
