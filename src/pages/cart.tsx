@@ -2,32 +2,18 @@ import Iconify from "@/components/image/Iconify";
 import ImageWithSkeleton from "@/components/image/ImageWithSkeleton";
 import { fontStyle } from "@/styles/customTheme/fontStyle";
 import { numberWithSeparator } from "@/utils/format/number";
+import menu from "@/utils/menu";
 import { Button, Flex, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function CartPage() {
-  const [veggetables, setVeggetables] = useState([
-    {
-      name: "kubis",
-      description: "Deskripsi",
-      image: "",
-      price: 500,
-      currentCart: 0,
-    },
-    {
-      name: "telur seperempat",
-      description: "Duluan telur atau ayam?",
-      image: "",
-      price: 8000,
-      currentCart: 0,
-    },
-    {
-      name: "nama sayur yang panjang banget",
-      image: "",
-      price: 8000,
-      currentCart: 0,
-    },
-  ]);
+  const [veggetables, setVeggetables] = useState(menu.map((m) => ({
+    name: m.name,
+    description: m.description,
+    image: m.image,
+    price: m.price,
+    currentCart: 0,
+  })));
 
   const nomorMasAgus = "62859159868347";
 
@@ -67,7 +53,7 @@ _Chat ini merupakan template dari #DoTangi_
           <Text
             {...fontStyle.heading5bold}
           >
-            Pilih Sayur
+            Pilih Bahan
           </Text>
           <Text
             {...fontStyle.captionRegular}
@@ -151,11 +137,13 @@ _Chat ini merupakan template dari #DoTangi_
             )}
           </HStack>
         ))}
+        <Flex h="160px" />
       </Stack>
 
       <Flex
         boxShadow="0px -8px 63px -22px rgba(0,0,0,0.7)"
         borderTopRadius="20px"
+        bgColor="white"
         position="fixed"
         bottom={0}
         p="20px"
@@ -171,7 +159,7 @@ _Chat ini merupakan template dari #DoTangi_
             boxSize="24px"
             mr="8px"
           />
-          Pesan {totalItem > 0 ? `(${totalItem} barang)` : ""}
+          Pesan {totalItem > 0 ? `(${totalItem} bahan)` : ""}
         </Button>
       </Flex>
     </>
